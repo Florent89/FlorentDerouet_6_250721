@@ -5,13 +5,21 @@ const path = require("path");
 const helmet = require("helmet");
 const saucesRoutes = require("./routes/sauces");
 const userRoutes = require("./routes/user");
+require("dotenv").config();
+const rateLimit = require("express-rate-limit");
+const cookieSession = require("cookie-session");
 
 const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://User89:kXLKChJLL7zqREv@cluster0.ayc36.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
+    "mongodb+srv://" +
+      process.env.DB +
+      "/myFirstDatabase?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
@@ -28,6 +36,14 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20, // limit each IP to 20 requests per windowMs
+});
+
+app.use(cookieSession);
+app.use(limiter);
 
 app.use(helmet());
 app.use(bodyParser.json());
