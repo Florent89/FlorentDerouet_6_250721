@@ -42,7 +42,12 @@ const limiter = rateLimit({
   max: 20, // limit each IP to 20 requests per windowMs
 });
 
-app.use(cookieSession);
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["key1", "key2"],
+  })
+);
 app.use(limiter);
 
 app.use(helmet());
