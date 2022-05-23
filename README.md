@@ -8,11 +8,10 @@ Cloner le projet :
 
 Le projet utilise une partie frontend d'un autre dépot en sous-module Pour cloner ce projet, utilisez :
 
-Procédure
-
-    Cloner le projet.
 
 Dans le dossier du frontend
 
     Exécuter npm install.
     Exécuter npm start.
+    
+Même démarche pour le back-end
