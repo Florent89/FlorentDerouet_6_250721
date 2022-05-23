@@ -14,4 +14,6 @@ Dans le dossier du frontend
     Exécuter npm install.
     Exécuter npm start.
     
-Même démarche pour le back-end
+Dans le dossier back-end
+Exécuter npm install.
+Exécuter nodemon server.
